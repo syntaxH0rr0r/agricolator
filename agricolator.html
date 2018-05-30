@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <style type="text/css">
+  @import url('https://fonts.googleapis.com/css?family=UnifrakturCook:700');
+    body { background-color: #dedede; font-family: Arial,sans-serif; }
+  	#datInput, #agriDiv {width: 300px; float: left;}
+    #datInput {line-height: 18em;}
+    #agriDiv {margin-left: 2em;}
+  	.agristyle {font-family: 'UnifrakturCook', cursive; font-size: 1.5em; text-transform: lowercase;}
+    #napit {clear:both;}
+    .CTA {display: block; float: left; font-family: 'UnifrakturCook', cursive; padding: 0.5em 2em;}
+    #disclaimer {color: #777; font-size: 0.75em; position: absolute; bottom: 1px;}
+  	h1 {font-family: 'UnifrakturCook', cursive; font-size: 3em;}
+  </style>
+  <title>Agricolator</title>
+</head>
+<body>
+<h1>Agricolator v0.1</h1>
+<script type="text/javascript">
+$(function() {
+  $('#datInput').on("input", function() {
+    $('#agriDiv').text($(this).val());
+  });
+});
+</script>
+
+<input id="datInput" placeholder="Kirjoita tekstisi tähän">
+<div id="agriDiv"></div>
+<div id="napit">
+  <button class="CTA" onclick="agricolify()">Agricoloi!</button>
+  <button class="CTA" onclick="refresh()">Resetoi!</button>
+</div>
+
+<script>
+function refresh() {
+    location.reload();
+}
+</script>
+
+<!-- Agricolifying -->
+<script>
+function agricolify() {
+    var str = document.getElementById("agriDiv").innerHTML; 
+    // Grammar array
+    var mapObj = {
+      ks:"x",
+      lkk:"lk",
+      lk:"lg",
+      lt:"ld",
+      ts:"dz",
+      uo:"oo",
+      lpp:"lp",
+      mpp:"mp",
+      mp:"mb",
+      ntt:"nt",
+      nt:"nd",
+      nk:"ng",
+      rtt:"rt",
+      kk:"ck",
+      f:"ph",
+      j:"i",
+      v:"w",
+      öö:"ö"
+    };
+
+    // Replacement magic
+    var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
+    str = str.replace(re, function(matched){
+      return mapObj[matched.toLowerCase()];
+    });
+    document.getElementById("agriDiv").innerHTML = str;
+    
+    // Add that fancy font
+        var agristylify = document.getElementById("agriDiv");
+        agristylify.classList.add("agristyle");
+    }
+  </script>
+
+  <div id="disclaimer">Kieliopin tukena käytetty Erkki Savolaisen taulukkoa, <a href="http://materiaalit.internetix.fi/fi/  opintojaksot/8kieletkirjallisuus/aidinkieli/kirjasuomi/06ortografia">Agricolan ortografia</a>.
+  Vain viihdekäyttöön.
+  </div>
+</body>
+</html>
+
+
+
